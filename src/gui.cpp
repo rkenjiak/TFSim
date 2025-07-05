@@ -8,9 +8,9 @@
 
 using namespace nana;
 
-char const* str_spec = "<vert <weight = 5%><vert weight=85% < <weight = 1% ><instr> <rst> <weight = 1%> <weight = 20% regs> <weight = 1%> > < <weight = 1%> <memor> <weight = 1%> <rob> <weight = 1%> > > < <weight = 1%> <clk_c weight=15%> <weight=50%> <gap = 10btns> <weight = 1%> > <weight = 2%> >";
+char const* str_spec = "<vert <weight = 5%><vert weight=85% < <weight = 1% ><instr> <rst> <weight = 1%> <weight = 20% regs> <weight = 1%> > < <weight = 1%> <memor> <weight = 1%> <rob> <weight = 1%> > > < <weight = 1%> <clk_c weight=15%> <weight=25%> <gap = 10btns> <weight = 1%> > <weight = 2%> >";
 
-char const* str_nospec = "<vert <weight = 5%><vert weight=85% < <weight = 1% ><instr> <weight = 1%> <rst> <weight = 1%> > < <weight = 1%> <memor> <weight = 1%> <weight = 29% regs> <weight = 1%> > > < <weight = 1%> <clk_c weight=15%> <weight=50%> <gap = 10btns> <weight = 1%> > <weight = 2%> >";
+char const* str_nospec = "<vert <weight = 5%><vert weight=85% < <weight = 1% ><instr> <weight = 1%> <rst> <weight = 1%> > < <weight = 1%> <memor> <weight = 1%> <weight = 29% regs> <weight = 1%> > > < <weight = 1%> <clk_c weight=15%> <weight=25%> <gap = 10btns> <weight = 1%> > <weight = 2%> >";
 
 // Mostra mensagem na interface grafica
 void show_message(string message_title, string message)

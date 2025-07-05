@@ -74,6 +74,9 @@ int sc_main(int argc, char *argv[])
     listbox instruct(fm);
     listbox rob(fm);
     menubar mnbar(fm);
+    button raw(fm);
+    button war(fm);
+    button waw(fm);
     button start(fm);
     button run_all(fm);
     button clock_control(fm);
@@ -91,12 +94,15 @@ int sc_main(int argc, char *argv[])
     {"SLT",1},{"SGT", 1}};
     // Responsavel pelos modos de execução
     top top1("top");
+    raw.caption("RAW");
+    war.caption("WAR");
+    waw.caption("WAW");
     start.caption("Start");
     clock_control.caption("Next cycle");
     run_all.caption("Run all");
     exit.caption("Exit");
     plc["rst"] << table;
-    plc["btns"] << start << clock_control << run_all << exit;
+    plc["btns"] << start << raw << war << waw << clock_control << run_all << exit;
     plc["memor"] << memory;
     plc["regs"] << reg;
     plc["rob"] << rob;
@@ -968,6 +974,24 @@ int sc_main(int argc, char *argv[])
     }
     top1.metrics(cpu_freq, mode, bench_name, n_bits);
     });
+
+    raw.events().click([&]
+    {        
+        Dependency_Identifier dependency_checker(instruction_queue);
+        dependency_checker.find_RAW_dependencies();
+    });
+
+    war.events().click([&]
+    {        
+        Dependency_Identifier dependency_checker(instruction_queue);
+        dependency_checker.find_WAR_dependencies();
+    });
+
+    waw.events().click([&]
+    {        
+        Dependency_Identifier dependency_checker(instruction_queue);
+        dependency_checker.find_WAW_dependencies();
+    });  
 
     exit.events().click([]
     {
