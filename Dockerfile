@@ -13,10 +13,10 @@ RUN apt-get update && \
 
 # Build TFSim deps and tfsim itself
 WORKDIR /opt/TFSim
-ADD src ./src/
-ADD obj ./obj/
 COPY  Makefile get_dep.sh .
 RUN sh get_dep.sh
+ADD src ./src/
+ADD obj ./obj/
 RUN make
 
 # Add TFsim to PATH

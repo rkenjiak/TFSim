@@ -931,21 +931,42 @@ int sc_main(int argc, char *argv[])
     clock_control.events().click([&]
     {
         if(spec && top1.get_rob_queue().queue_is_empty() && top1.get_rob().rob_is_empty())
+        {
+            top1.metrics(cpu_freq, mode, bench_name, n_bits);
             return;
+        }            
         else if (!spec && top1.get_queue().queue_is_empty())
+        {
+            top1.metrics(cpu_freq, mode, bench_name, n_bits);
             return;
+        }            
         if(sc_is_running())
             sc_start();
     });
 
     run_all.events().click([&]{
-        // enquanto queue e rob nao estao vazios, roda ate o fim
-        while(!(top1.get_queue().queue_is_empty() && top1.get_rob().rob_is_empty())){
-            if(sc_is_running())
-                sc_start();
+    while(true){
+        bool should_break = false;
+        if (mode == 0) { // Simple mode
+            if (top1.get_queue().queue_is_empty()) {
+                should_break = true;
+            }
+        } else { // Speculative mode (mode == 1 or mode == 2)
+            if (top1.get_rob_queue().queue_is_empty() && top1.get_rob().rob_is_empty()){
+                should_break = true;
+            }
         }
-
-        top1.metrics(cpu_freq, mode, bench_name, n_bits);
+        if (should_break) {
+            break; // Exit the while loop
+        }
+        if(sc_is_running()) {
+            sc_start();
+        } else {
+            std::cerr << "Error: sc_is_running() is false, but queues are not empty!" << std::endl;
+            break; 
+        }
+    }
+    top1.metrics(cpu_freq, mode, bench_name, n_bits);
     });
 
     exit.events().click([]
