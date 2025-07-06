@@ -91,6 +91,7 @@ public:
     void 
     find_RAW_dependencies() 
     {
+        int count = 0;
         std::cout << "--- Identifying RAW Dependencies ---" << std::endl;
         if (parsed_instructions.empty()) {
             std::cout << "No instructions to analyze." << std::endl;
@@ -108,7 +109,7 @@ public:
                 std::vector<std::string> src_regs = get_source_registers(j);
                 for (const auto& src_reg : src_regs) {
                     if (src_reg == dest_reg) {
-                        std::cout << "RAW Dependency Found:" << std::endl;
+                        std::cout << "RAW Dependency Found (" << ++count << "):"<< std::endl;
                         std::cout << "\tInstruction " << i << ": (" << _instructions[i] << ") writes to register " << dest_reg << "." << std::endl;
                         std::cout << "\tInstruction " << j << ": (" << _instructions[j] << ") reads from register " << dest_reg << "." << std::endl;
                         std::cout << "------------------------------------" << std::endl;
@@ -125,6 +126,7 @@ public:
     void 
     find_WAR_dependencies() 
     {
+        int count = 0;
         std::cout << "--- Identifying WAR Dependencies ---" << std::endl;
         if (parsed_instructions.empty()) {
             std::cout << "No instructions to analyze." << std::endl;
@@ -149,7 +151,7 @@ public:
                 // Check if any source from instruction i matches the destination of instruction j
                 for (const auto& src_reg : src_regs_i) {
                     if (src_reg == dest_reg_j) {
-                        std::cout << "WAR Dependency Found:" << std::endl;
+                        std::cout << "WAR Dependency Found (" << ++count << "):"<< std::endl;
                         std::cout << "\tInstruction " << i << ": (" << _instructions[i] << ") reads from register " << src_reg << "." << std::endl;
                         std::cout << "\tInstruction " << j << ": (" << _instructions[j] << ") writes to register " << dest_reg_j << "." << std::endl;
                         std::cout << "------------------------------------" << std::endl;
@@ -166,6 +168,7 @@ public:
     void 
     find_WAW_dependencies() 
     {
+        int count = 0;
         std::cout << "--- Identifying WAW Dependencies ---" << std::endl;
         if (parsed_instructions.empty()) {
             std::cout << "No instructions to analyze." << std::endl;
@@ -186,7 +189,7 @@ public:
 
                 // If they write to the same register, it's a WAW dependency
                 if (dest_reg_i == dest_reg_j) {
-                    std::cout << "WAW Dependency Found:" << std::endl;
+                    std::cout << "WAW Dependency Found (" << ++count << "):"<< std::endl;
                     std::cout << "\tInstruction " << i << ": (" << _instructions[i] << ") writes to register " << dest_reg_i << "." << std::endl;
                     std::cout << "\tInstruction " << j << ": (" << _instructions[j] << ") also writes to register " << dest_reg_j << "." << std::endl;
                     std::cout << "------------------------------------" << std::endl;

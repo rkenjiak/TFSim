@@ -102,7 +102,7 @@ int sc_main(int argc, char *argv[])
     run_all.caption("Run all");
     exit.caption("Exit");
     plc["rst"] << table;
-    plc["btns"] << start << raw << war << waw << clock_control << run_all << exit;
+    plc["btns"] << raw << war << waw << start << clock_control << run_all << exit;
     plc["memor"] << memory;
     plc["regs"] << reg;
     plc["rob"] << rob;
